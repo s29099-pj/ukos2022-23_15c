@@ -1,0 +1,50 @@
+Get-Help Get-ExecutionPolicy - sluzy do uzyskania pomocy z dowolnym poleceniem
+
+Get-Module -ListAvailable - lista dostepnych modulow
+
+
+Get-Module -ListAvailable | ? {$_.Version -ge "2.0.0.0"} - wersja >= 2.0.0.0
+
+Get-Module -ListAvailable | ? {$_.Version -ge "2.0.0.0"} | % {Get-Command -Module $_.Name} - cmdlet oraz wersja >= 2.0.0.0 
+
+Get-Module -ListAvailable | ? {$_.Version -ge "2.0.0.0"} | % {Get-Command -Module $_.Name} | ? {($_.Name -like "Add-*") -or ($_.Name -like "Get-*")} - to co wyzej + w nazwie "Add-" lub "Get-"
+
+Get-Module -ListAvailable | ? {$_.Version -ge "2.0.0.0"} | % {Get-Command -Module $_.Name} | ? {($_.Name -like "Add-*") -or ($_.Name -like "Get-*")} | Out-GridView - wyswietli tabelke graficzna w nowym oknie 
+
+$nazwaPliku = "mojaNazwaPliku.txt"
+Get-Module -ListAvailable | ? {$_.Version -ge "2.0.0.0"} | % {Get-Command -Module $_.Name} | ? {($_.Name -like "Add-*") -or ($_.Name -like "Get-*")} | Out-File $env:TEMP\$nazwaPliku - zapisze do pliku
+
+Get-Module -ListAvailable | ? {$_.Version -ge "2.0.0.0"} | % {Get-Command -Module $_.Name} | ? {($_.Name -like "Add-*") -or ($_.Name -like "Get-*")} | Out-Null - nic sie nie wyswietli
+
+Import-Module - importuje modul / lub alias "ipmo"
+
+Get-Command -Module NAZWA_MODULU - wypisze wszystkie komendy w danym module
+
+Measure-Command - sluzy do mierzenia czasu
+
+Get-ChildItem - ma alia "ls"
+
+& C:\Windows\notepad.exe - odpala notatnik
+
+mozna przegladac rejestr wchodzac do niego jak na dysk:
+cd hklm:\
+lub przegladac go jako zwykly system plikow 
+
+Get-WmiObject -Class Win32_Product | Select-Object Name, Vendor | Format-Table -AutoSize - sluzy do zarzadzania systemem
+
+
+Get-PSDrive - wypisuje dyski
+
+
+
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+
+$icoPath = Get-Process -id $pid | Select-Object -ExpandProperty Path
+
+$myNotification = New-Object System.Windows.Forms.NotifyIcon
+$myNotification.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($icoPath)
+$myNotification.BalloonTipIcon = 'Error'
+$myNotification.BalloonTipText = "Your cat has meowed!" 
+$myNotification.BalloonTipTitle = "Cat Error"
+$myNotification.Visible = $True 
+$myNotification.ShowBalloonTip(10000)                                         - wyswietla notyfikacje 
